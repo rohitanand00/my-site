@@ -6,15 +6,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* This line is the "Styling Engine" that was missing */}
         <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
+        {/* Loading Space Grotesk - A high-end tech font */}
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" />
         <style>{`
+          * { font-family: 'Space Grotesk', sans-serif !important; }
           body { 
             background-color: #020617; 
             margin: 0; 
-            font-family: 'Inter', sans-serif;
+            color: white;
           }
+          /* Custom scrollbar for premium feel */
+          ::-webkit-scrollbar { width: 8px; }
+          ::-webkit-scrollbar-track { background: #020617; }
+          ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
         `}</style>
       </head>
       <body>{children}</body>
