@@ -2,161 +2,110 @@
 import data from '../lib/data.json';
 import AnimatedBackground from '../components/AnimatedBackground';
 import { motion } from 'framer-motion';
-import { Database, BarChart3, Table, Users, TrendingUp, GraduationCap, Briefcase } from 'lucide-react';
+import { Database, BarChart3, Table, Users, TrendingUp, GraduationCap, Briefcase, ExternalLink } from 'lucide-react';
 
-// Specific Brand Colors
-const brandColors: any = {
-  "S&P Global": "#E31B23", // Red
-  "Pegasystems": "#0066CC", // Pega Blue
-  "Paytm Ads": "#002E6E", // Paytm Dark Blue
-  "Soul AI": "#8B5CF6", // Purple
-  "INNODATATICS * Innovation | Data | Analytics": "#002E5D" // Dark Blue
+const brandConfigs: any = {
+  "S&P Global": { color: "#E31B23", logo: "https://logo.clearbit.com/spglobal.com" },
+  "Pegasystems": { color: "#0066CC", logo: "https://logo.clearbit.com/pega.com" },
+  "Paytm Ads": { color: "#00baf2", logo: "https://logo.clearbit.com/paytm.com" },
+  "Soul AI": { color: "#8B5CF6", logo: "https://ui-avatars.com/api/?name=Soul+AI&background=8B5CF6&color=fff" },
+  "INNODATATICS * Innovation | Data | Analytics": { color: "#002E5D", logo: "https://ui-avatars.com/api/?name=Innodatatics&background=002E5D&color=fff" },
+  "University of Hyderabad": { logo: "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/University_of_Hyderabad_logo.png/220px-University_of_Hyderabad_logo.png" },
+  "Banaras Hindu University": { logo: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a3/Banaras_Hindu_University_logo.png/220px-Banaras_Hindu_University_logo.png" }
 };
 
 export default function Home() {
-  const topSkills = [
-    { name: "Business Analysis", icon: <TrendingUp size={18} /> },
-    { name: "Advanced Excel", icon: <Table size={18} /> },
-    { name: "Power BI", icon: <BarChart3 size={18} /> },
-    { name: "SQL", icon: <Database size={18} /> },
-    { name: "Stakeholder Management", icon: <Users size={18} /> }
-  ];
-
-  const impacts = [
-    { label: "35% Effort Reduction", detail: "Automated reporting at Paytm Ads" },
-    { label: "95% Forecast Accuracy", detail: "ARIMA/LSTM models at Innodatatics" },
-    { label: "12.7% Cost Cut", detail: "Dijkstra's route optimization" }
-  ];
-
   return (
-    <main className="min-h-screen text-slate-100 font-sans selection:bg-blue-500/30">
+    <main className="min-h-screen text-slate-100 pb-20">
       <AnimatedBackground />
       
-      <div className="max-w-5xl mx-auto px-6 py-12 relative z-10">
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
         
-        {/* TOP SKILLS BAR */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {topSkills.map((skill) => (
-            <motion.div 
-              whileHover={{ y: -5, scale: 1.05 }}
-              key={skill.name}
-              className="flex items-center gap-2 px-4 py-2 bg-slate-900/80 border border-slate-700 rounded-full text-sm font-medium backdrop-blur-md shadow-lg shadow-blue-500/10"
-            >
-              <span className="text-blue-400">{skill.icon}</span>
-              {skill.name}
-            </motion.div>
-          ))}
-        </div>
-
         {/* HERO SECTION */}
-        <header className="text-center mb-24">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            className="text-7xl font-black tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-500"
-          >
-            {data.basics.name}
-          </motion.h1>
-          <p className="text-xl text-blue-400 font-medium mb-8 uppercase tracking-widest">{data.basics.label}</p>
-          
-          <div className="max-w-2xl mx-auto mb-10">
-            <p className="text-lg text-slate-400 leading-relaxed">
-              Business Analytics MBA specializing in turning raw data into institutional-grade intelligence. 
-              Ex-Pegasystems & Paytm. Currently at S&P Global.
+        <header className="pt-24 pb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <h1 className="text-8xl font-bold tracking-tighter mb-4 leading-none">
+              Rohit<br/><span className="text-blue-500">Anand.</span>
+            </h1>
+            <p className="text-xl text-slate-400 font-light max-w-xl leading-relaxed mb-8">
+              MBA in Business Analytics. Transforming data into <span className="text-white border-b border-blue-500">financial intelligence</span> at S&P Global.
             </p>
-          </div>
-
-          {/* INTERACTIVE IMPACT BUTTONS */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {impacts.map((impact) => (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                key={impact.label}
-                className="group relative px-6 py-3 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden transition-all hover:border-blue-500"
-              >
-                <div className="relative z-10 flex flex-col items-center">
-                  <span className="text-white font-bold">{impact.label}</span>
-                  <span className="text-[10px] text-slate-500 uppercase tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity">
-                    {impact.detail}
-                  </span>
-                </div>
-              </motion.button>
-            ))}
-          </div>
+            
+            <div className="flex gap-4">
+              {["SQL", "Power BI", "Excel", "Analysis"].map(s => (
+                <span key={s} className="text-xs font-mono px-3 py-1 border border-slate-800 rounded-full bg-slate-900/50 text-slate-500">{s}</span>
+              ))}
+            </div>
+          </motion.div>
         </header>
 
         {/* EXPERIENCE SECTION */}
         <section className="mb-32">
-          <h2 className="text-2xl font-bold mb-12 flex items-center gap-3">
-            <Briefcase className="text-blue-500" /> Professional Experience
-          </h2>
-          
-          <div className="grid gap-6">
+          <div className="flex items-center gap-4 mb-12">
+            <div className="h-px flex-1 bg-slate-800"></div>
+            <h2 className="text-sm font-mono tracking-[0.3em] text-slate-500 uppercase">Experience</h2>
+          </div>
+
+          <div className="space-y-16">
             {data.experience.map((job: any) => (
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                key={job.company}
-                className="group relative bg-slate-900/40 border border-slate-800 p-8 rounded-2xl backdrop-blur-xl hover:bg-slate-900/60 transition-all"
-              >
-                <div 
-                  className="absolute left-0 top-0 w-1 h-full rounded-l-2xl" 
-                  style={{ backgroundColor: brandColors[job.company] || '#334155' }}
-                />
-                
-                <div className="flex flex-wrap justify-between items-start gap-4">
-                  <div>
-                    <button 
-                      className="px-4 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-3 text-white shadow-lg"
-                      style={{ backgroundColor: brandColors[job.company] || '#334155' }}
-                    >
-                      {job.company}
-                    </button>
-                    <h3 className="text-2xl font-bold text-white">{job.role}</h3>
+              <motion.div key={job.company} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="group">
+                <div className="flex gap-6">
+                  {/* LOGO COLUMN */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-14 h-14 rounded-2xl bg-white p-2 flex items-center justify-center overflow-hidden shadow-xl group-hover:scale-110 transition-transform">
+                      <img src={brandConfigs[job.company]?.logo} alt={job.company} className="w-full h-full object-contain" />
+                    </div>
+                    <div className="w-px flex-1 bg-slate-800 my-4 group-last:hidden"></div>
                   </div>
-                  <span className="text-sm font-mono text-slate-500 bg-slate-950 px-3 py-1 rounded-full">{job.dates}</span>
+
+                  {/* CONTENT COLUMN */}
+                  <div className="flex-1 pb-10">
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <h3 className="text-2xl font-bold">{job.role}</h3>
+                        <p className="text-blue-500 font-medium">{job.company}</p>
+                      </div>
+                      <span className="text-xs font-mono text-slate-600 mt-2">{job.dates}</span>
+                    </div>
+                    <ul className="space-y-3 mt-6">
+                      {job.bullets.map((b: string, i: number) => (
+                        <li key={i} className="text-slate-400 text-sm leading-relaxed flex gap-3">
+                          <span className="text-blue-900 mt-1.5 h-1 w-1 rounded-full bg-blue-500 shrink-0" /> {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                
-                <ul className="mt-6 space-y-3 text-slate-400">
-                  {job.bullets.map((b: string, i: number) => (
-                    <li key={i} className="flex gap-3 text-sm leading-relaxed">
-                      <span className="text-blue-500 mt-1">▹</span> {b}
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* EDUCATION TRAJECTORY */}
+        {/* EDUCATION SECTION */}
         <section className="mb-32">
-          <h2 className="text-2xl font-bold mb-12 flex items-center gap-3">
-            <GraduationCap className="text-blue-500" /> Academic Trajectory
-          </h2>
-          
-          <div className="relative border-l-2 border-slate-800 ml-4 space-y-12 pb-8">
-            {data.education.map((edu: any, index: number) => (
-              <motion.div 
-                initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-                key={edu.degree}
-                className="relative pl-10"
-              >
-                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
-                <div className="bg-slate-900/30 border border-slate-800 p-5 rounded-xl hover:border-slate-600 transition-colors">
-                  <span className="text-xs font-mono text-blue-400 block mb-1">{edu.dates}</span>
-                  <h4 className="text-lg font-bold text-white">{edu.school}</h4>
-                  <p className="text-slate-400 text-sm">{edu.degree}</p>
+          <div className="flex items-center gap-4 mb-12">
+            <div className="h-px flex-1 bg-slate-800"></div>
+            <h2 className="text-sm font-mono tracking-[0.3em] text-slate-500 uppercase">Education</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {data.education.map((edu: any) => (
+              <div key={edu.degree} className="p-6 rounded-2xl border border-slate-800 bg-slate-900/20 flex gap-4 items-center">
+                <div className="w-12 h-12 rounded-lg bg-white/10 p-1 shrink-0 overflow-hidden">
+                   <img src={brandConfigs[edu.school]?.logo || "https://ui-avatars.com/api/?name=Uni"} className="w-full h-full object-contain grayscale brightness-200" />
                 </div>
-              </motion.div>
+                <div>
+                  <h4 className="font-bold text-sm leading-tight">{edu.school}</h4>
+                  <p className="text-xs text-slate-500 mt-1">{edu.degree}</p>
+                </div>
+              </div>
             ))}
           </div>
         </section>
 
-        <footer className="text-center py-12 border-t border-slate-900">
-          <p className="text-slate-600 text-sm tracking-widest uppercase">
-            Designed for Impact • {data.basics.email}
-          </p>
+        <footer className="pt-20 border-t border-slate-900 flex justify-between items-center text-[10px] font-mono text-slate-600 uppercase tracking-widest">
+           <span>{data.basics.email}</span>
+           <span>Rohit Anand © 2025</span>
         </footer>
 
       </div>
