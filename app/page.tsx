@@ -2,154 +2,138 @@
 import data from '../lib/data.json';
 import AnimatedBackground from '../components/AnimatedBackground';
 import { motion } from 'framer-motion';
-import { Database, Table, BarChart3, Users, Github, Mail, Linkedin, ArrowUpRight, Cpu, Sparkles } from 'lucide-react';
-
-const skillIcons: any = {
-  "Business/data Analysis": <Cpu className="w-5 h-5" />,
-  "advanced excel": <Table className="w-5 h-5" />,
-  "sql": <Database className="w-5 h-5" />,
-  "powerbi": <BarChart3 className="w-5 h-5" />,
-  "stakeholder management": <Users className="w-5 h-5" />
-};
+import { Database, Github, Mail, Linkedin, ArrowUpRight, GraduationCap } from 'lucide-react';
 
 export default function Home() {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <main className="min-h-screen text-slate-100 pb-20">
+    <main className="min-h-screen text-slate-100 pb-20 bg-[#020617]">
       <AnimatedBackground />
       
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-5xl mx-auto px-6 relative z-10">
         
         {/* HERO SECTION */}
-        <section className="pt-32 pb-24">
-          <div className="flex flex-col md:flex-row gap-12 items-center">
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }} 
-              animate={{ opacity: 1, x: 0 }}
-              className="flex-1"
-            >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono mb-6">
-                <Sparkles className="w-3 h-3" /> AVAILABLE FOR HIRED ROLES
-              </div>
-              <h1 className="text-7xl md:text-9xl font-bold tracking-tighter mb-4 leading-none">
-                {data.basics.name.split(' ')[0]}<br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">
-                  {data.basics.name.split(' ')[1]}.
-                </span>
-              </h1>
-              <p className="text-xl text-slate-400 font-light max-w-lg leading-relaxed">
-                MBA in Business Analytics. Transforming datasets into <span className="text-white font-medium">Financial Intelligence</span>.
-              </p>
-            </motion.div>
+        <section className="pt-32 pb-24 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <h1 className="text-8xl md:text-[12rem] font-extrabold tracking-tighter mb-8 leading-[0.8]">
+              Rohit<br/><span className="text-blue-500">Anand.</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-400 font-light max-w-2xl mx-auto leading-relaxed">
+              {data.basics.summary}
+            </p>
+          </motion.div>
 
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="relative"
-            >
-              <div className="absolute inset-0 bg-blue-500 blur-[80px] opacity-20"></div>
-              <img src={data.basics.profileImage} alt="Rohit" className="w-48 h-48 md:w-64 md:h-64 rounded-3xl border border-slate-700 bg-slate-900/50 backdrop-blur-xl p-4 relative z-10" />
-            </motion.div>
-          </div>
-
-          {/* SKILLS STRIP */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-wrap gap-4 mt-16">
-            {Object.keys(skillIcons).map((skill) => (
-              <div key={skill} className="flex items-center gap-2 px-5 py-3 bg-slate-900/40 backdrop-blur-md border border-slate-800 rounded-2xl text-sm font-medium hover:border-blue-500/50 transition-all cursor-default group">
-                <span className="text-slate-500 group-hover:text-blue-400 transition-colors">{skillIcons[skill]}</span>
-                {skill}
-              </div>
-            ))}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+            className="mt-16 relative h-64 md:h-[450px] w-full rounded-[3.5rem] overflow-hidden border border-slate-800 shadow-2xl"
+          >
+            <img src={data.basics.heroCover} className="w-full h-full object-cover opacity-50 brightness-75" alt="Analytics Cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent" />
+            <div className="absolute bottom-12 left-12 text-left">
+               <div className="px-5 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full inline-block mb-3 uppercase tracking-[0.2em]">Data Analyst</div>
+               <p className="text-sm text-slate-300 font-mono tracking-widest">S&P GLOBAL | HYDERABAD, INDIA</p>
+            </div>
           </motion.div>
         </section>
 
-        {/* IMPACT SECTION */}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-32">
-          {data.impacts.map((impact, i) => (
-            <motion.button 
-              key={i} 
-              whileHover={{ y: -5 }}
-              onClick={() => scrollTo(impact.target)}
-              className="p-8 rounded-3xl bg-slate-900/30 border border-slate-800 backdrop-blur-md text-left group overflow-hidden relative"
-            >
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 group-hover:text-blue-500 transition-all">
-                <ArrowUpRight className="w-6 h-6" />
-              </div>
-              <div className="text-4xl font-bold mb-1">{impact.value}</div>
-              <div className="text-xs font-mono text-slate-500 uppercase tracking-widest">{impact.label}</div>
-            </motion.button>
+        {/* CLICKABLE IMPACT STRIP */}
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-40">
+          {data.impacts.map((impact: any, i: number) => (
+            <button key={i} onClick={() => scrollTo(impact.target)} className="p-10 rounded-[2.5rem] bg-slate-900/40 border border-slate-800/50 backdrop-blur-xl text-left group hover:bg-blue-600/10 transition-all">
+              <div className="text-5xl font-extrabold mb-1 tracking-tighter group-hover:text-blue-400 transition-colors">{impact.value}</div>
+              <div className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em]">{impact.label}</div>
+            </button>
           ))}
         </section>
 
         {/* PROJECTS SECTION */}
-        <section className="mb-32">
-          <h2 className="text-sm font-mono text-slate-500 uppercase tracking-[0.4em] mb-12">Building with Data</h2>
+        <section className="mb-40">
+          <h2 className="text-[10px] font-mono text-slate-600 uppercase tracking-[0.4em] mb-12 px-4">Featured Projects</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {data.projects.map((project, i) => (
+            {data.projects.map((project: any, i: number) => (
               <motion.a 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                key={project.title}
-                href={project.link}
-                className="group rounded-3xl bg-slate-900/40 border border-slate-800 overflow-hidden block hover:border-blue-500/50 transition-all"
+                key={project.title} href={project.link} target="_blank"
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
+                className="group rounded-[3rem] bg-slate-900/40 border border-slate-800 overflow-hidden block hover:border-blue-500/50 transition-all"
               >
                 <div className="h-48 overflow-hidden relative">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent" />
                 </div>
                 <div className="p-8">
                   <h4 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">{project.title}</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">{project.desc}</p>
+                  <p className="text-xs text-slate-500 leading-relaxed">{project.desc}</p>
+                  <div className="mt-6 flex items-center text-[10px] font-bold text-blue-500 tracking-widest opacity-0 group-hover:opacity-100 transition-all">
+                    VIEW PROJECT <ArrowUpRight className="w-3 h-3 ml-1" />
+                  </div>
                 </div>
               </motion.a>
             ))}
           </div>
         </section>
 
-        {/* CAREER TRAJECTORY */}
-        <section className="mb-32">
-          <h2 className="text-sm font-mono text-slate-500 uppercase tracking-[0.4em] mb-16">Experience</h2>
+        {/* EXPERIENCE - LOGO + NAME SIDE BY SIDE */}
+        <section className="mb-40">
+          <h2 className="text-[10px] font-mono text-slate-600 uppercase tracking-[0.4em] mb-16 px-4">Work Trajectory</h2>
           <div className="space-y-6">
-            {data.experience.map((job) => (
-              <motion.div 
-                id={job.id} 
-                key={job.company} 
-                className="group relative p-8 rounded-3xl bg-slate-900/30 border border-slate-800 backdrop-blur-md hover:bg-slate-900/50 transition-all"
-              >
-                <div className="absolute left-0 top-0 bottom-0 w-1 group-hover:w-2 transition-all" style={{ backgroundColor: job.color }}></div>
-                <div className="flex flex-col md:flex-row justify-between gap-4">
-                  <div>
-                    <span className="text-xs font-mono mb-2 block" style={{ color: job.color }}>{job.dates}</span>
-                    <h3 className="text-2xl font-bold">{job.role}</h3>
-                    <p className="text-slate-400 font-medium">{job.company}</p>
+            {data.experience.map((job: any) => (
+              <div id={job.id} key={job.company} className="p-10 rounded-[3rem] bg-slate-900/30 border border-slate-800 hover:border-blue-500/50 transition-all group">
+                <div className="flex flex-col md:flex-row md:items-center gap-6 mb-10">
+                  <div className="w-16 h-16 rounded-2xl bg-white p-3 flex items-center justify-center shrink-0 shadow-xl">
+                    <img src={job.logo} alt={job.company} className="w-full h-full object-contain" />
                   </div>
-                  <div className="flex-1 md:max-w-md">
-                    <ul className="space-y-3">
-                      {job.bullets.map((b, j) => (
-                        <li key={j} className="text-sm text-slate-500 leading-relaxed">• {b}</li>
-                      ))}
-                    </ul>
+                  <div className="flex flex-col">
+                    <h3 className="text-3xl font-bold tracking-tight">{job.company}</h3>
+                    <p className="text-blue-500 font-semibold text-lg">{job.role}</p>
                   </div>
+                  <div className="md:ml-auto font-mono text-xs text-slate-500">{job.dates}</div>
                 </div>
-              </motion.div>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {job.bullets.map((b: string, j: number) => (
+                    <div key={j} className="p-6 rounded-2xl bg-slate-950/50 border border-slate-800/50 text-sm text-slate-400 leading-relaxed group-hover:text-slate-200 transition-colors">
+                      {b}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* EDUCATION SECTION */}
+        <section className="mb-40">
+          <h2 className="text-[10px] font-mono text-slate-600 uppercase tracking-[0.4em] mb-12 px-4">Academic History</h2>
+          <div className="grid md:grid-cols-2 gap-4">
+            {data.education.map((edu: any) => (
+              <div key={edu.degree} className="p-8 rounded-[2.5rem] bg-slate-900/20 border border-slate-800/50 flex items-center gap-6 group hover:bg-slate-900/50 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                   <GraduationCap className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg leading-tight">{edu.school}</h4>
+                  <p className="text-blue-500 text-sm font-medium mt-1">{edu.degree}</p>
+                </div>
+              </div>
             ))}
           </div>
         </section>
 
         {/* FOOTER */}
-        <footer className="pt-20 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center">
-           <div className="flex gap-4 mb-8 md:mb-0">
-             <a href={`mailto:${data.basics.email}`} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 hover:border-blue-500 text-blue-500 transition-all"><Mail className="w-5 h-5"/></a>
-             <a href="https://linkedin.com/in/-rohitanand" target="_blank" className="p-4 rounded-2xl bg-slate-900 border border-slate-800 hover:border-blue-500 text-blue-500 transition-all"><Linkedin className="w-5 h-5"/></a>
+        <footer className="pt-20 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-10">
+           <div className="flex gap-8">
+             <a href={`mailto:${data.basics.email}`} className="text-slate-400 hover:text-blue-500 transition-colors text-sm font-semibold tracking-tighter flex items-center gap-2">
+               <Mail className="w-4 h-4" /> EMAIL
+             </a>
+             <a href="https://linkedin.com/in/-rohitanand" className="text-slate-400 hover:text-blue-500 transition-colors text-sm font-semibold tracking-tighter flex items-center gap-2">
+               <Linkedin className="w-4 h-4" /> LINKEDIN
+             </a>
+             <a href="https://github.com/rohitanand00" className="text-slate-400 hover:text-blue-500 transition-colors text-sm font-semibold tracking-tighter flex items-center gap-2">
+               <Github className="w-4 h-4" /> GITHUB
+             </a>
            </div>
-           <div className="text-xs font-mono text-slate-600 tracking-widest">
-             ROHIT ANAND © 2025 • DESIGNED FOR IMPACT
-           </div>
+           <span className="text-[10px] font-mono text-slate-700 uppercase tracking-[0.5em]">ROHIT ANAND • 2025</span>
         </footer>
-
       </div>
     </main>
   );
