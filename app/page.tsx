@@ -2,7 +2,7 @@
 import data from '../lib/data.json';
 import AnimatedBackground from '../components/AnimatedBackground';
 import { motion } from 'framer-motion';
-import { Database, Table, BarChart3, LineChart, Users, Github, Mail, Linkedin, ArrowUpRight, Cpu } from 'lucide-react';
+import { Database, Table, BarChart3, Users, Github, Mail, Linkedin, ArrowUpRight, Cpu, Sparkles } from 'lucide-react';
 
 const skillIcons: any = {
   "Business/data Analysis": <Cpu className="w-5 h-5" />,
@@ -13,83 +13,123 @@ const skillIcons: any = {
 };
 
 export default function Home() {
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <main className="min-h-screen text-slate-100 selection:bg-blue-500/30">
+    <main className="min-h-screen text-slate-100 pb-20">
       <AnimatedBackground />
       
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         
         {/* HERO SECTION */}
-        <section className="pt-32 pb-20">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <h1 className="text-7xl md:text-9xl font-bold tracking-tighter mb-6">
-              {data.basics.name.split(' ')[0]}<br/>
-              <span className="text-blue-500">{data.basics.name.split(' ')[1]}.</span>
-            </h1>
-            
-            {/* TOP 5 SKILLS */}
-            <div className="flex flex-wrap gap-3 mt-8">
-              {Object.keys(skillIcons).map((skill) => (
-                <div key={skill} className="flex items-center gap-2 px-4 py-2 bg-slate-900/50 border border-slate-800 rounded-full text-xs font-mono uppercase tracking-wider text-slate-400">
-                  <span className="text-blue-500">{skillIcons[skill]}</span>
-                  {skill}
-                </div>
-              ))}
-            </div>
+        <section className="pt-32 pb-24">
+          <div className="flex flex-col md:flex-row gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }} 
+              animate={{ opacity: 1, x: 0 }}
+              className="flex-1"
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono mb-6">
+                <Sparkles className="w-3 h-3" /> AVAILABLE FOR HIRED ROLES
+              </div>
+              <h1 className="text-7xl md:text-9xl font-bold tracking-tighter mb-4 leading-none">
+                {data.basics.name.split(' ')[0]}<br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">
+                  {data.basics.name.split(' ')[1]}.
+                </span>
+              </h1>
+              <p className="text-xl text-slate-400 font-light max-w-lg leading-relaxed">
+                MBA in Business Analytics. Transforming datasets into <span className="text-white font-medium">Financial Intelligence</span>.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-blue-500 blur-[80px] opacity-20"></div>
+              <img src={data.basics.profileImage} alt="Rohit" className="w-48 h-48 md:w-64 md:h-64 rounded-3xl border border-slate-700 bg-slate-900/50 backdrop-blur-xl p-4 relative z-10" />
+            </motion.div>
+          </div>
+
+          {/* SKILLS STRIP */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-wrap gap-4 mt-16">
+            {Object.keys(skillIcons).map((skill) => (
+              <div key={skill} className="flex items-center gap-2 px-5 py-3 bg-slate-900/40 backdrop-blur-md border border-slate-800 rounded-2xl text-sm font-medium hover:border-blue-500/50 transition-all cursor-default group">
+                <span className="text-slate-500 group-hover:text-blue-400 transition-colors">{skillIcons[skill]}</span>
+                {skill}
+              </div>
+            ))}
           </motion.div>
         </section>
 
-        {/* CLICKABLE IMPACT STRIP */}
-        <section className="py-12 border-y border-slate-800/50 bg-slate-900/20 backdrop-blur-sm">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {data.impacts.map((impact, i) => (
-              <button 
-                key={i} 
-                onClick={() => scrollTo(impact.target)}
-                className="text-left group transition-all"
+        {/* IMPACT SECTION */}
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-32">
+          {data.impacts.map((impact, i) => (
+            <motion.button 
+              key={i} 
+              whileHover={{ y: -5 }}
+              onClick={() => scrollTo(impact.target)}
+              className="p-8 rounded-3xl bg-slate-900/30 border border-slate-800 backdrop-blur-md text-left group overflow-hidden relative"
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 group-hover:text-blue-500 transition-all">
+                <ArrowUpRight className="w-6 h-6" />
+              </div>
+              <div className="text-4xl font-bold mb-1">{impact.value}</div>
+              <div className="text-xs font-mono text-slate-500 uppercase tracking-widest">{impact.label}</div>
+            </motion.button>
+          ))}
+        </section>
+
+        {/* PROJECTS SECTION */}
+        <section className="mb-32">
+          <h2 className="text-sm font-mono text-slate-500 uppercase tracking-[0.4em] mb-12">Building with Data</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {data.projects.map((project, i) => (
+              <motion.a 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                key={project.title}
+                href={project.link}
+                className="group rounded-3xl bg-slate-900/40 border border-slate-800 overflow-hidden block hover:border-blue-500/50 transition-all"
               >
-                <div className="text-4xl font-bold text-white group-hover:text-blue-400 transition-colors flex items-center gap-1">
-                  {impact.value} <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all" />
+                <div className="h-48 overflow-hidden relative">
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent" />
                 </div>
-                <div className="text-xs font-mono text-slate-500 uppercase tracking-widest mt-1">{impact.label}</div>
-              </button>
+                <div className="p-8">
+                  <h4 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">{project.title}</h4>
+                  <p className="text-sm text-slate-500 leading-relaxed">{project.desc}</p>
+                </div>
+              </motion.a>
             ))}
           </div>
         </section>
 
-        {/* EXPERIENCE TRAJECTORY */}
-        <section className="py-32">
-          <h2 className="text-sm font-mono text-slate-500 uppercase tracking-[0.4em] mb-16">Career Trajectory</h2>
-          <div className="space-y-12 relative">
-            {/* The Vertical Line */}
-            <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-800 md:left-1/2"></div>
-            
-            {data.experience.map((job, i) => (
+        {/* CAREER TRAJECTORY */}
+        <section className="mb-32">
+          <h2 className="text-sm font-mono text-slate-500 uppercase tracking-[0.4em] mb-16">Experience</h2>
+          <div className="space-y-6">
+            {data.experience.map((job) => (
               <motion.div 
-                id={job.id}
+                id={job.id} 
                 key={job.company} 
-                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                className={`relative flex flex-col md:flex-row gap-8 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                className="group relative p-8 rounded-3xl bg-slate-900/30 border border-slate-800 backdrop-blur-md hover:bg-slate-900/50 transition-all"
               >
-                <div className="flex-1 hidden md:block" />
-                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-slate-900 border-4 border-slate-800 z-10 flex items-center justify-center">
-                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: job.color }}></div>
-                </div>
-                <div className="flex-1 ml-12 md:ml-0">
-                  <div className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800 hover:border-slate-700 transition-all group">
-                    <span className="text-[10px] font-mono mb-2 block" style={{ color: job.color }}>{job.dates}</span>
-                    <h3 className="text-xl font-bold mb-1">{job.role}</h3>
-                    <div className="inline-block px-3 py-1 rounded text-xs font-bold mb-4" style={{ backgroundColor: `${job.color}20`, color: job.color }}>
-                      {job.company}
-                    </div>
-                    <ul className="space-y-2">
+                <div className="absolute left-0 top-0 bottom-0 w-1 group-hover:w-2 transition-all" style={{ backgroundColor: job.color }}></div>
+                <div className="flex flex-col md:flex-row justify-between gap-4">
+                  <div>
+                    <span className="text-xs font-mono mb-2 block" style={{ color: job.color }}>{job.dates}</span>
+                    <h3 className="text-2xl font-bold">{job.role}</h3>
+                    <p className="text-slate-400 font-medium">{job.company}</p>
+                  </div>
+                  <div className="flex-1 md:max-w-md">
+                    <ul className="space-y-3">
                       {job.bullets.map((b, j) => (
-                        <li key={j} className="text-sm text-slate-400 leading-relaxed">• {b}</li>
+                        <li key={j} className="text-sm text-slate-500 leading-relaxed">• {b}</li>
                       ))}
                     </ul>
                   </div>
@@ -99,41 +139,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PROJECTS SECTION */}
-        <section className="py-32 border-t border-slate-800">
-          <h2 className="text-sm font-mono text-slate-500 uppercase tracking-[0.4em] mb-12">Featured Projects</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {data.projects.map((project) => (
-              <a 
-                href={project.link} 
-                target="_blank" 
-                key={project.title}
-                className="group p-8 rounded-3xl bg-slate-900/40 border border-slate-800 hover:bg-blue-600/5 hover:border-blue-500/50 transition-all"
-              >
-                <Github className="w-6 h-6 mb-6 text-slate-600 group-hover:text-blue-500 transition-colors" />
-                <h4 className="text-xl font-bold mb-3">{project.title}</h4>
-                <p className="text-sm text-slate-500 leading-relaxed mb-6">{project.desc}</p>
-                <div className="flex items-center text-xs font-mono text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                  VIEW REPOSITORY <ArrowUpRight className="w-3 h-3 ml-1" />
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        {/* CONTACT FOOTER */}
-        <footer className="py-20 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-8">
-           <div className="text-center md:text-left">
-             <h2 className="text-2xl font-bold mb-2">Let's connect.</h2>
-             <p className="text-slate-500 text-sm">Open for data-driven collaborations.</p>
+        {/* FOOTER */}
+        <footer className="pt-20 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center">
+           <div className="flex gap-4 mb-8 md:mb-0">
+             <a href={`mailto:${data.basics.email}`} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 hover:border-blue-500 text-blue-500 transition-all"><Mail className="w-5 h-5"/></a>
+             <a href="https://linkedin.com/in/-rohitanand" target="_blank" className="p-4 rounded-2xl bg-slate-900 border border-slate-800 hover:border-blue-500 text-blue-500 transition-all"><Linkedin className="w-5 h-5"/></a>
            </div>
-           <div className="flex gap-4">
-             <a href={`mailto:${data.basics.email}`} className="p-4 rounded-full bg-slate-900 border border-slate-800 hover:border-blue-500 transition-all text-blue-500">
-               <Mail className="w-5 h-5" />
-             </a>
-             <a href="https://linkedin.com/in/-rohitanand" target="_blank" className="p-4 rounded-full bg-slate-900 border border-slate-800 hover:border-blue-500 transition-all text-blue-500">
-               <Linkedin className="w-5 h-5" />
-             </a>
+           <div className="text-xs font-mono text-slate-600 tracking-widest">
+             ROHIT ANAND © 2025 • DESIGNED FOR IMPACT
            </div>
         </footer>
 
