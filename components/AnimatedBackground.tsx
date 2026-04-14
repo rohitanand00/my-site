@@ -1,8 +1,10 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -10,28 +12,37 @@ export default function AnimatedBackground() {
     if (!ctx) return;
 
     let particles: any[] = [];
-    const resize = () => {
+    const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    window.addEventListener("resize", resize);
-    resize();
+    const handleMouseMove = (e: MouseEvent) => setMouse({ x: e.clientX, y: e.clientY });
 
-    for (let i = 0; i < 80; i++) {
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
+    handleResize();
+
+    for (let i = 0; i < 60; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 1.5
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+        size: Math.random() * 2
       });
     }
 
     function animate() {
-      ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
       ctx!.fillStyle = "#020617";
       ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
       
+      // Mouse Glow Effect
+      const gradient = ctx!.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 400);
+      gradient.addColorStop(0, "rgba(29, 78, 216, 0.15)");
+      gradient.addColorStop(1, "rgba(2, 6, 23, 0)");
+      ctx!.fillStyle = gradient;
+      ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
+
       particles.forEach((p, i) => {
         p.x += p.vx; p.y += p.vy;
         if (p.x < 0 || p.x > canvas!.width) p.vx *= -1;
@@ -39,26 +50,17 @@ export default function AnimatedBackground() {
         
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx!.fillStyle = "rgba(148, 163, 184, 0.3)";
+        ctx!.fillStyle = "rgba(148, 163, 184, 0.2)";
         ctx!.fill();
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 120) {
-            ctx!.beginPath();
-            ctx!.strokeStyle = `rgba(148, 163, 184, ${0.15 * (1 - dist/120)})`;
-            ctx!.moveTo(p.x, p.y);
-            ctx!.lineTo(p2.x, p2.y);
-            ctx!.stroke();
-          }
-        }
       });
       requestAnimationFrame(animate);
     }
     animate();
-    return () => window.removeEventListener("resize", resize);
-  }, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [mouse]);
 
-  return <canvas ref={canvasRef} className="fixed top-0 left-0 -z-10 w-full h-full pointer-events-none" />;
+  return <canvas ref={canvasRef} className="fixed top-0 left-0 -z-10 w-full h-full" />;
 }
