@@ -1,10 +1,9 @@
 {
   "basics": {
     "name": "Rohit Anand",
-    "label": "Data Analyst at S&P Global",
+    "summary": "MBA in Business Analytics. Creating stories and insights from messy data.",
     "email": "anandrohit919@gmail.com",
-    "profileImage": "https://api.dicebear.com/7.x/avataaars/svg?seed=Rohit",
-    "summary": "MBA Business Analytics professional transforming complex datasets into actionable financial intelligence. Expert in SQL, Power BI, and Advanced Excel."
+    "heroCover": "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=2000&auto=format&fit=crop"
   },
   "impacts": [
     { "value": "12.7%", "label": "Cost Reduction", "target": "innodatatics" },
@@ -16,54 +15,68 @@
     {
       "id": "spglobal",
       "company": "S&P Global",
+      "logo": "https://logo.clearbit.com/spglobal.com",
       "role": "Data Analyst",
-      "dates": "March 2026 - Present",
-      "color": "#E31B23",
-      "bullets": ["Extracting investor transaction datasets via SQL and Excel, validating and reconciling records."]
+      "dates": "Mar 2026 - Present",
+      "bullets": ["Ensured 100% data integrity for financial reporting.", "Reconciled high-volume investor transactions.", "Flagged quality issues across multi-stage pipelines."]
+    },
+    {
+      "id": "soulai",
+      "company": "Soul AI",
+      "logo": "https://ui-avatars.com/api/?name=Soul+AI&background=8B5CF6&color=fff",
+      "role": "AI Quality Evaluator",
+      "dates": "Aug 2025 - Feb 2026",
+      "bullets": ["Evaluated 750+ prompt-response pairs for LLMs.", "Informed iterative improvements to model quality.", "Maintained high accuracy across 8-dimension rubrics."]
     },
     {
       "id": "pega",
       "company": "Pegasystems",
+      "logo": "https://logo.clearbit.com/pega.com",
       "role": "People Initiatives Intern",
       "dates": "June 2025 - Aug 2025",
-      "color": "#0066CC",
-      "bullets": ["Built a standardized HR metric dictionary.", "Built an AI agent for People Analytics queries."]
+      "bullets": ["Standardized HR metrics with 20+ global stakeholders.", "Built AI agent to automate People Analytics queries.", "Audited 70+ Power BI dashboards for usage gaps."]
     },
     {
       "id": "paytm",
       "company": "Paytm Ads",
+      "logo": "https://logo.clearbit.com/paytm.com",
       "role": "Analytics Intern",
       "dates": "Jan 2025 - May 2025",
-      "color": "#00baf2",
-      "bullets": ["Reduced manual reporting effort by 35% via automation."]
+      "bullets": ["Reduced manual effort by 35% via SQL automation.", "Enabled monitoring for 15+ managers in Power BI.", "Translated dashboard findings into leadership actions."]
     },
     {
       "id": "innodatatics",
       "company": "INNODATATICS",
+      "logo": "https://ui-avatars.com/api/?name=ID&background=002E5D&color=fff",
       "role": "Data Analyst Intern",
       "dates": "June 2024 - July 2024",
-      "color": "#002E5D",
-      "bullets": ["Developed ARIMA + LSTM forecasting models with ~95% accuracy.", "Optimized 50+ routes for 12.7% cost reduction."]
+      "bullets": ["Achieved ~95% accuracy using ARIMA + LSTM models.", "Cut logistics costs by 12.7% via route optimization.", "Produced BRD/FRD documentation for technical scope."]
     }
   ],
   "projects": [
     {
       "title": "Airline Review Analysis",
-      "desc": "Sentiment analysis and service quality dashboard.",
-      "link": "https://github.com/rohitanand00",
-      "image": "https://images.unsplash.com/photo-1436491865332-7a61a109c0f2?q=80&w=800"
+      "desc": "Sentiment analysis and service quality dashboard using Python and Power BI.",
+      "image": "https://images.unsplash.com/photo-1436491865332-7a61a109c0f2?q=80&w=800",
+      "link": "https://github.com/rohitanand00"
     },
     {
       "title": "Credit Card Default Prediction",
-      "desc": "ML model to identify high-risk customers.",
-      "link": "https://github.com/rohitanand00",
-      "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800"
+      "desc": "Machine Learning model to identify high-risk customers with 88% precision.",
+      "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800",
+      "link": "https://github.com/rohitanand00"
     },
     {
-      "title": "Financial Dashboard",
-      "desc": "Automated SQL pipeline for portfolio tracking.",
-      "link": "https://github.com/rohitanand00",
-      "image": "https://images.unsplash.com/photo-1611974714652-f4df6299d213?q=80&w=800"
+      "title": "Financial Performance Dashboard",
+      "desc": "Automated SQL-to-Excel pipeline for real-time portfolio tracking.",
+      "image": "https://images.unsplash.com/photo-1611974714652-f4df6299d213?q=80&w=800",
+      "link": "https://github.com/rohitanand00"
     }
+  ],
+  "education": [
+    { "degree": "MBA, Business Analytics", "school": "University of Hyderabad" },
+    { "degree": "PG Diploma, Corporate Governance", "school": "Banaras Hindu University" },
+    { "degree": "B.Com (Hons.), Financial Market", "school": "Banaras Hindu University" },
+    { "degree": "UG Diploma, Computer Applications", "school": "Banaras Hindu University" }
   ]
 }
